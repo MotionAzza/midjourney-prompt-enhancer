@@ -1,0 +1,59 @@
+{
+  "lighting": [
+    { "name": "Golden Hour", "image": "https://cdn.midjourney.com/e9be1edb-a438-48aa-9f81-268048558dc8/0_0.png" },
+    { "name": "Foggy", "image": "https://cdn.midjourney.com/95776ffe-7677-4026-93a4-f62d49dcaa9c/0_0.png" },
+    { "name": "Backlit", "image": "https://cdn.midjourney.com/3afda4ee-b0ab-4598-8273-b0bd98de1587/0_2.png" },
+    { "name": "Candlelight", "image": "https://cdn.midjourney.com/2185e48f-a56b-4af3-aeb4-1a4a3ee49e77/0_3.png" },
+    { "name": "High-Key Studio Lighting", "image": "https://cdn.midjourney.com/86c8c8d6-6fd0-4807-82f4-f263930f1495/0_3.png" },
+    { "name": "Low-Key Moody Lighting --profile sfs4r3p --quality 2 ", "image": "https://cdn.midjourney.com/c2d4f45d-af6a-4d7c-9799-9ba9966fd390/0_3.png" }
+  ],
+  "composition": [
+    { "name": "Rule of Thirds", "image": "https://cdn.midjourney.com/a7a02ef1-8eb5-4d47-94da-be1fc3cba930/0_1.png" },
+    { "name": "Symmetrical", "image": "https://cdn.midjourney.com/93640234-c629-4fc1-999b-4632cf9654c9/0_3.png" },
+    { "name": "Depth of Field", "image": "https://cdn.midjourney.com/d3cee0cf-d4a8-48bc-b463-30dbc9e48e55/0_1.png" },
+    { "name": "Extreme Close-Up Focus", "image": "https://via.placeholder.com/300?text=Extreme+Close-Up+Focus" },
+    { "name": "Bird Eye View --profile d4l8kh6 ", "image": "https://cdn.midjourney.com/943509ef-9e78-4b05-b6e4-0aa958de8370/0_0.png" },
+    { "name": "Over-the-Shoulder Shot from the back", "image": "https://cdn.midjourney.com/6bff207f-537c-42c7-8ad2-15ef02b17e79/0_2.png" },
+    { "name": "Panoramic Wide Shot --profile 2wwavyd ", "image": "https://cdn.midjourney.com/f1492ea2-2f8f-44d3-ac91-c28b07edf288/0_3.png" }
+  ],
+  "art_style": [
+    { "name": "Collage Cut Out --profile 9p2ygsq", "image": "https://cdn.midjourney.com/0036ac40-d02f-4349-8b23-03500e935574/0_0.png" },
+    { "name": "3D illustration --profile fstwyav --profile fkdnsti --niji 6", "image": "https://cdn.midjourney.com/cecd368d-ba49-49e2-b5ee-321af38f6d55/0_1.png" },
+    { "name": "2d digital illustration --profile fmsua21 vtzwdun fmsua21 rrng6in ggjql1j --sref 842338509 ", "image": "https://cdn.midjourney.com/b9b4c907-e834-470c-b847-a07cc5a1edd1/0_0.png" },
+    { "name": "Clay Stop Motion --profile q7c7quk --sref 1923246294  ", "image": "https://cdn.midjourney.com/0a1e01e6-522d-4bc4-97c1-5c9ebc035408/0_2.png" },
+    { "name": "Tiltshift Diorama --profile wqhvd8b --profile fkdnsti --profile g2snl5m ", "image": "https://cdn.midjourney.com/7912eb79-6dcd-4495-858a-0d5189c410b9/0_0.png" },
+    { "name": "Cinematic movie still hyper realistic, 4k, ultra detailed", "image": "https://cdn.midjourney.com/19faa5ef-5c7e-402d-8e23-af36b5a1582e/0_3.png" },
+    { "name": "Digital illustration", "image": "https://via.placeholder.com/300?text=Watercolor" },
+    { "name": "Digital Painting", "image": "https://via.placeholder.com/300?text=Digital+Painting" },
+    { "name": "Polaroid Film", "image": "https://via.placeholder.com/300?text=Polaroid+Film" },
+    { "name": "Mixed Media Collage", "image": "https://via.placeholder.com/300?text=Mixed+Media+Collage" }
+  ],
+  "mood": [
+    { "name": "Joyful", "image": "https://via.placeholder.com/300?text=Joyful" },
+    { "name": "Eerie", "image": "https://cdn.midjourney.com/e57ab969-851d-4452-9567-cd1133d27596/0_0.png" },
+    { "name": "Haunting", "image": "https://cdn.midjourney.com/e57ab969-851d-4452-9567-cd1133d27596/0_3.png" },
+    { "name": "Whimsical", "image": "https://via.placeholder.com/300?text=Whimsical" },
+    { "name": "Dreamlike", "image": "https://via.placeholder.com/300?text=Dreamlike" },
+    { "name": "Dystopian", "image": "https://via.placeholder.com/300?text=Dystopian" },
+    { "name": "Serene", "image": "https://via.placeholder.com/300?text=Serene" },
+    { "name": "Melancholic", "image": "https://via.placeholder.com/300?text=Melancholic" },
+    { "name": "Surreal", "image": "https://via.placeholder.com/300?text=Surreal" },
+    { "name": "Dark and Gritty", "image": "https://via.placeholder.com/300?text=Dark+and+Gritty" },
+    { "name": "Mystical", "image": "https://via.placeholder.com/300?text=Mystical" },
+    { "name": "Romantic", "image": "https://via.placeholder.com/300?text=Romantic" }
+  ],
+  "camera_and_lens": [
+    { "name": "Sony Alpha a7 III + 50mm f/1.2", "image": "https://via.placeholder.com/300?text=Sony+Alpha+a7+III+%2B+50mm+f%2F1.2" },
+    { "name": "Canon EOS R5 + 24-70mm f/2.8", "image": "https://via.placeholder.com/300?text=Canon+EOS+R5+%2B+24-70mm+f%2F2.8" },
+    { "name": "Nikon D850 + 70-200mm f/2.8", "image": "https://via.placeholder.com/300?text=Nikon+D850+%2B+70-200mm+f%2F2.8" },
+    { "name": "Hasselblad X1D + 100mm Macro", "image": "https://via.placeholder.com/300?text=Hasselblad+X1D+%2B+100mm+Macro" },
+    { "name": "Blackmagic Cinema + 16mm", "image": "https://via.placeholder.com/300?text=Blackmagic+Cinema+%2B+16mm" },
+    { "name": "DJI Phantom 4 Pro (Drone)", "image": "https://via.placeholder.com/300?text=DJI+Phantom+4+Pro+(Drone)" },
+    { "name": "Panasonic Lumix GH5S + 12-35mm", "image": "https://via.placeholder.com/300?text=Panasonic+Lumix+GH5S+%2B+12-35mm" },
+    { "name": "Fujifilm X-T4 + 23mm f/1.4", "image": "https://via.placeholder.com/300?text=Fujifilm+X-T4+%2B+23mm+f%2F1.4" },
+    { "name": "Canon RF 15-35mm f/2.8L IS USM", "image": "https://via.placeholder.com/300?text=Canon+RF+15-35mm+f%2F2.8L+IS+USM" },
+    { "name": "Sony FE 70-200mm f/2.8 GM OSS", "image": "https://via.placeholder.com/300?text=Sony+FE+70-200mm+f%2F2.8+GM+OSS" },
+    { "name": "Goerz Hypergon 6.5mm f/8", "image": "https://via.placeholder.com/300?text=Goerz+Hypergon+6.5mm+f%2F8" },
+    { "name": "Sigma 35mm f/1.2 DG DN Art", "image": "https://via.placeholder.com/300?text=Sigma+35mm+f%2F1.2+DG+DN+Art" }
+  ]
+}

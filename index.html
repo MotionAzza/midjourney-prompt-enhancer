@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midjourney Prompt Generator</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #FBFBF3;
+      color: #333;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    /* Wizard Container */
+    #wizard-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    /* Slider Wrapper (only one visible at a time) */
+    #slider-wrapper {
+      position: relative;
+      min-height: 400px;
+      margin-bottom: 20px;
+    }
+    .category-slider {
+      display: none;
+      text-align: center;
+    }
+    .category-slider.active {
+      display: block;
+    }
+    .category-slider h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    /* Slider Container & 3D Slider */
+    .slider-container {
+      perspective: 1200px;
+      width: 160px;
+      height: 260px;
+      margin: 0 auto 20px auto;
+      position: relative;
+    }
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+    /* Navigation Buttons */
+    #nav-buttons {
+      text-align: center;
+      margin: 10px 0;
+    }
+    #nav-buttons button {
+      margin: 0 10px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+    }
+    #nav-buttons button:hover {
+      background: #555;
+    }
+    /* Progress Bar / Navigation Thumbnails */
+    #progress-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .progress-thumbnail {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      background: #eee;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .progress-thumbnail.selected {
+      border-color: #333;
+    }
+    .progress-thumbnail.active {
+      outline: 2px solid #555;
+    }
+    .progress-thumbnail .thumb-image {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+    .progress-thumbnail .thumb-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 0.7rem;
+      text-align: center;
+      padding: 2px 0;
+    }
+    /* Generate Button */
+    #generate-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: #FF6633;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #generate-btn:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="wizard-container">
+    <h1>Midjourney Prompt Generator</h1>
+    <h2>Select Parameters to Enhance Your Prompt</h2>
+    <form method="POST" id="story-form">
+      <!-- Slider Wrapper: Only one category slider is visible at a time -->
+      <div id="slider-wrapper">
+        {% for category, items in options.items() %}
+        <div class="category-slider" data-category="{{ category }}" id="slider-block-{{ category }}">
+          <h3>{{ category.replace('_',' ').capitalize() }}:</h3>
+          <div class="slider-container">
+            <div class="slider" id="slider-{{ category }}" data-angle="0">
+              {% for item in items %}
+              <div 
+                class="slide" 
+                data-item="{{ item.name }}" 
+                style="background-image: url('{{ item.image }}'); 
+                       transform: rotateY({{ (360 / items|length * loop.index0)|round(2) }}deg) translateZ(300px);">
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- Hidden input to store selection (if any) -->
+          <input type="hidden" name="{{ category }}" id="input-{{ category }}">
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div id="nav-buttons">
+        <button type="button" id="prev-btn">Previous</button>
+        <button type="button" id="next-btn">Next</button>
+      </div>
+
+      <!-- Progress Navigation Bar -->
+      <div id="progress-container">
+        {% for category, items in options.items() %}
+        <div class="progress-thumbnail" data-index="{{ loop.index0 }}" data-category="{{ category }}">
+          <div class="thumb-image"></div>
+          <div class="thumb-label">{{ category.replace('_',' ').capitalize() }}</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Generate Story Button (always enabled) -->
+      <button type="submit" id="generate-btn">Generate Prompt</button>
+    </form>
+
+    <!-- Display generated story if available -->
+    {% if story %}  
+    <div id="story-container">
+      <h2>Your Generated Story:</h2>
+      <p>{{ story }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sliderBlocks = document.querySelectorAll('.category-slider');
+      const progressThumbs = document.querySelectorAll('.progress-thumbnail');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      let currentIndex = 0; // currently visible slider index
+      const totalSliders = sliderBlocks.length;
+
+      // Function to show a slider block based on its index.
+      function showSlider(index) {
+        sliderBlocks.forEach((block, i) => {
+          block.classList.toggle('active', i === index);
+        });
+        currentIndex = index;
+        updateProgressActive();
+      }
+
+      // Update active styling on progress thumbnails.
+      function updateProgressActive() {
+        progressThumbs.forEach((thumb, i) => {
+          thumb.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+      // Update each progress thumbnail based on selection.
+      function updateProgress() {
+        sliderBlocks.forEach(block => {
+          const category = block.getAttribute('data-category');
+          const input = block.querySelector(`input[name="${category}"]`);
+          const thumb = document.querySelector(`.progress-thumbnail[data-category="${category}"]`);
+          if (input.value) {
+            thumb.classList.add('selected');
+            // Get the slider's current front-facing slide background.
+            const slider = block.querySelector('.slider');
+            const slides = slider.querySelectorAll('.slide');
+            const numSlides = slides.length;
+            let angle = parseFloat(slider.getAttribute('data-angle')) || 0;
+            const angleIncrement = 360 / numSlides;
+            let index = Math.round(-angle / angleIncrement) % numSlides;
+            if (index < 0) index += numSlides;
+            const selectedSlide = slides[index];
+            thumb.querySelector('.thumb-image').style.backgroundImage = selectedSlide.style.backgroundImage;
+          } else {
+            thumb.classList.remove('selected');
+            thumb.querySelector('.thumb-image').style.backgroundImage = '';
+          }
+        });
+      }
+
+      // Initially show the first slider block.
+      showSlider(0);
+
+      // Previous button
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          showSlider(currentIndex - 1);
+        }
+      });
+
+      // Next button
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < totalSliders - 1) {
+          showSlider(currentIndex + 1);
+        }
+      });
+
+      // Navigate to a slider when clicking on its thumbnail.
+      progressThumbs.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => {
+          showSlider(index);
+        });
+      });
+
+      // Allow scrolling to rotate the slider.
+      document.querySelectorAll('.slider-container').forEach(container => {
+        const slider = container.querySelector('.slider');
+        container.addEventListener('wheel', function(event) {
+          event.preventDefault();
+          let currentAngle = parseFloat(slider.getAttribute('data-angle')) || 0;
+          const slides = slider.querySelectorAll('.slide');
+          const numSlides = slides.length;
+          const angleIncrement = 360 / numSlides;
+          
+          // Rotate slider based on scroll direction.
+          if (event.deltaY < 0) {
+            currentAngle -= angleIncrement;
+          } else {
+            currentAngle += angleIncrement;
+          }
+          slider.setAttribute('data-angle', currentAngle);
+          slider.style.transform = `rotateY(${currentAngle}deg)`;
+        });
+
+        // When a slide is clicked, record the selection.
+        container.querySelectorAll('.slide').forEach(slide => {
+          slide.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const categorySlider = container.closest('.category-slider');
+            const category = categorySlider.getAttribute('data-category');
+            const input = categorySlider.querySelector(`input[name="${category}"]`);
+            input.value = slide.getAttribute('data-item');
+            updateProgress();
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
